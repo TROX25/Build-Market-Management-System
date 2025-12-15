@@ -8,5 +8,10 @@ namespace Build_Market_Management_System.Controllers
         {
             return View();
         }
+
+        public IActionResult Edit(int id)
+        {
+            return View();
+        }
     }
 }
