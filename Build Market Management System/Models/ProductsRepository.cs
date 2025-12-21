@@ -2,7 +2,7 @@
 {
     public class ProductsRepository
     {
-        private static List<Product> _products = new List<Product>()
+        private static List<Product> _products = new()
         {
             new Product { ProductId = 1, CategoryId = 1, Name = "Iced Tea", Quantity = 100, Price = 1.99 },
             new Product { ProductId = 2, CategoryId = 1, Name = "Canada Dry", Quantity = 200, Price = 1.99 },
