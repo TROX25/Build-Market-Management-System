@@ -2,6 +2,7 @@
 {
     public class ProductsRepository
     {
+        // _products wynika z konwencji nazewnictwa dla prywatnych pól statycznych. Oznacza to ze NIE jest przeznaczone do użytku poza tą klasą !!!
         private static List<Product> _products = new()
         {
             new Product { ProductId = 1, CategoryId = 1, Name = "Iced Tea", Quantity = 100, Price = 1.99 },
@@ -30,12 +31,12 @@
                     _products.ForEach(p =>
                     {
                         if (p.CategoryId.HasValue)
-                        p.Category = CategoriesRepository.GetCategoryById(p.CategoryId ?? 0);
+                            p.Category = CategoriesRepository.GetCategoryById(p.CategoryId ?? 0);
                     });
                 }
-                return _products?? new List<Product>();
+                return _products ?? new List<Product>();
             }
-                
+
         }
 
         public static Product? GetProductById(int productId, bool loadCategory = false)

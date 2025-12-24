@@ -14,7 +14,11 @@ namespace Build_Market_Management_System.Controllers
 
         public IActionResult Add()
         {
-            return View();
+            var productViewModel = new ViewModels.ProductViewModel
+            {
+                Categories = CategoriesRepository.GetCategories()
+            };
+            return View(productViewModel);
         }
 
         [HttpPost]
