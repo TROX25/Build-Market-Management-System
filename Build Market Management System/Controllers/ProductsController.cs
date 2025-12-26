@@ -1,6 +1,8 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using Build_Market_Management_System.Models;
+using Build_Market_Management_System.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace Build_Market_Management_System.Controllers
 {
@@ -22,19 +24,20 @@ namespace Build_Market_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Product product)
+        public IActionResult Add(ProductViewModel productViewModel)
         {
             if (ModelState.IsValid)
             {
-                ProductsRepository.AddProduct(product);
+                ProductsRepository.AddProduct(productViewModel.Product);
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(product);
+                return View(productViewModel);
             }
 
         }
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             ProductsRepository.DeleteProduct(id);

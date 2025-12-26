@@ -24,14 +24,21 @@
                         <td>@product.Price</td>
                         <td>@product.Quantity</td>
                         <td><a class="btn btn-link" asp-controller="products" asp-action="edit" asp-route-id="@product.ProductId">Edit</a></td>
-                        <td><a class="btn btn-danger" asp-controller="products" asp-action="delete" asp-route-id="@product.ProductId" onclick="return confirmDelete()" >Delete</a></td>
+                        <td>
+                        <form method="post" asp-controller="products" asp-action="delete" asp-route-id="@product.ProductId" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()">
+                                Delete
+                            </button>
+                        </form>
+                        </td>
+
                     </tr>
                 }
             </tbody>
         </table>
 
 
-    <form method="post" asp-controller="products" asp-action="add">
+    <form method="get" asp-controller="products" asp-action="add">
     <div class="row mb-3">
         <div class="col-2">
             <input type="submit" class="btn btn-primary" value="Add" />
