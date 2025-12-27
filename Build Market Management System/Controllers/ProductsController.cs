@@ -16,6 +16,7 @@ namespace Build_Market_Management_System.Controllers
 
         public IActionResult Add()
         {
+            ViewBag.Action = "add";
             var productViewModel = new ViewModels.ProductViewModel
             {
                 Categories = CategoriesRepository.GetCategories()
@@ -46,6 +47,7 @@ namespace Build_Market_Management_System.Controllers
 
         public IActionResult Edit(int? id)
         {
+            ViewBag.Action = "edit";
             var productViewModel = new ProductViewModel
             {
                 // Dzieki temu pobieramy dane kategorii i produktu ktore potem przekazuje do widoku i wyswietlam
