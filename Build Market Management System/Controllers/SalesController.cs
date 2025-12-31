@@ -14,5 +14,11 @@ namespace Build_Market_Management_System.Controllers
             };
             return View(salesViewModel);
         }
+
+        public IActionResult ProductDetailsPartial(int productId)
+        {
+            var product = ProductsRepository.GetProductById(productId);
+            return PartialView("_SellProduct", product);
+        }
     }
 }
