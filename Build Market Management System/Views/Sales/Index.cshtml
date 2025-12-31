@@ -42,10 +42,21 @@
 	<script>
 		$(function()
 		{
+			// 1. Category Selection
 			$("#SelectedCategoryId").on("change", function ()
 			{
 				$("#productsPartial").load("/products/ProductsByCategoryPartial", {CategoryId: $(this).val()}); /* this czyli SelectedCategoryId, a ID to categoryId */
 			})
+
+			// 2. Product Selection
+			$("#productsPartial").on("click", ".product-row", function ()
+			{
+				// Highligt selected row (references wwwroot/css/site file where i set highlight to yellow)
+					// 1. Musze odhighligthowac wszytstko co jest obecnie zahighlightowane
+				$('.product-row').removeClass('highlight');
+					// 2. Dodaje highlight do aktualnie zaznaczonego rzędu
+				$(this).addClass('highlight');
+			});
 		});
 	</script>
 }
