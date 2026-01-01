@@ -21,10 +21,20 @@ namespace Build_Market_Management_System.Controllers
             return PartialView("_SellProduct", product);
         }
 
-       [HttpPost]
-       public IActionResult Sell()
-       {
-            return View();
-       }
+        [HttpPost]
+        public IActionResult Sell(SalesViewModel salesViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // sell product
+            }
+
+            var product = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
+            salesViewModel.SelectedCategoryId = (product?.CategoryId == null) ? 0 : product.CategoryId.Value;
+            // Potrzebuje jeszcze raz pobrac kategorie, zeby wypelnic dropdown w widoku
+            // poniewaz przy postowaniu modelu nie sa one przesylane
+            salesViewModel.Categories = CategoriesRepository.GetCategories();
+            return View("Index", salesViewModel);
+        }
     }
 }

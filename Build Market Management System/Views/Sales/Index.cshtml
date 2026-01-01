@@ -11,6 +11,7 @@
 <br />
 <div class ="row">
 	<div class="col-4">
+		<div class="text-danger" asp-validation-summary="All"></div>
 		@*Category section*@
 		<select asp-for="SelectedCategoryId" class="form-control">
                 <option>- Please Select -</option>
@@ -32,11 +33,14 @@
 		</div>
 		@*Sales form*@
 		<form method="post" asp-controller="sales" asp-action="sell" id="formSale">
-			<input asp-form="SelectedProductId" type="hidden" />
+			<input asp-for="SelectedProductId" type="hidden" />
 			<div class="form-group">
 				<label asp-for="QuantityToSell"></label>
-				<input type="number" asp-for="QuantityToSell" class="form-control" min="1"/>
+				<input type="number" asp-for="QuantityToSell" class="form-control" @* min="1" *@/>
 			</div>
+			@* <div class="col">
+            <span class="text-danger" asp-validation-for="QuantityToSell"></span>
+			</div> *@
 			<br />
 			<input type="submit" value="Submit" class="btn btn-primary"/>
 		</form>
@@ -84,12 +88,12 @@
 				// Show Sale Form
 				if(productId > 0)
 				{
-					$("SelectedProductId").val(productId);
+					$("#SelectedProductId").val(productId);
 					$('#formSale').show();
 				}
 				else
 				{
-					("SelectedProductId").val("");
+					("#SelectedProductId").val("");
 					$('#formSale').hide();
 				}
 
