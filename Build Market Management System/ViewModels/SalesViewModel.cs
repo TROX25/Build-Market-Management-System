@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Build_Market_Management_System.Models;
+using Build_Market_Management_System.ViewModels.Validation;
 
 namespace Build_Market_Management_System.ViewModels
 {
@@ -12,6 +13,7 @@ namespace Build_Market_Management_System.ViewModels
 
         [Display(Name = "Quantity")]
         [Range(1, int.MaxValue)]
+        [SalesViewModel_EnsureProperQuantity]
         public int QuantityToSell { get; set; }
     }
 }
