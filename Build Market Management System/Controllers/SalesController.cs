@@ -45,7 +45,6 @@ namespace Build_Market_Management_System.Controllers
                     };
                     TransactionsRepository.AddTransaction(transaction);
                     TempData["SuccessMessage"] = $"Successfully sold {salesViewModel.QuantityToSell} unit(s) of {prod.Name}.";
-                    return RedirectToAction("Index");
                 }
                 else
                 {

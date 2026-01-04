@@ -84,7 +84,7 @@
 			$("#productsPartial").on("click", ".product-row", function ()
 			{
 				// usuwam poprzednie przypisanie quantity przy zmianie produktu
-				$('#formSale')[0].reset();
+				//$('#formSale')[0].reset();
 
 				// Highligt selected row (references wwwroot/css/site file where i set highlight to yellow)
 					// 1. Musze odhighligthowac wszytstko co jest obecnie zahighlightowane
@@ -101,12 +101,12 @@
 				if(productId > 0)
 				{
 					$("#SelectedProductId").val(productId);
-					$('#formSale').show();
+					$("#formSale").show();
 				}
 				else
 				{
 					$("#SelectedProductId").val("");
-					$('#formSale').hide();
+					$("#formSale").hide();
 				}
 
 			});
