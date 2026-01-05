@@ -13,17 +13,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var transaction in Model)
+        @if (Model.Any())
         {
-            <tr style="font-size:12px;">
-                <td>@transaction.CashierName</td>
-                <td>@transaction.ProductName</td>
-                <td>@transaction.TimeStamp.ToString("MM/dd hh:mm")</td>
-                <td>@transaction.BeforeQuantity</td>
-                <td>@transaction.SoldQuantity</td>
-                <td>@(transaction.BeforeQuantity - transaction.SoldQuantity)</td>
-                <td>@(string.Format("{0:c}", transaction.SoldQuantity * transaction.Price))</td>
-            </tr>
+            @foreach (var transaction in Model)
+            {
+                <tr style="font-size:12px;">
+                    <td>@transaction.CashierName</td>
+                    <td>@transaction.ProductName</td>
+                    <td>@transaction.TimeStamp.ToString("MM/dd hh:mm")</td>
+                    <td>@transaction.BeforeQuantity</td>
+                    <td>@transaction.SoldQuantity</td>
+                    <td>@(transaction.BeforeQuantity - transaction.SoldQuantity)</td>
+                    <td>@(string.Format("{0:c}", transaction.SoldQuantity * transaction.Price))</td>
+                </tr>
+            }
         }
     </tbody>
 </table>
