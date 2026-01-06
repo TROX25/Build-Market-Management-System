@@ -41,7 +41,17 @@
             </nav>
         </header>
         <div class="container">
-            @RenderBody()
+            <div class="pb-3">
+                @if (IsSectionDefined("title"))
+                {
+                    @RenderSection("title", false)
+                    <hr />
+                }
+            </div>
+
+            <dev>
+                @RenderBody()
+            </dev>
         </div>
     </div>
     @* jQuery CDN *@
