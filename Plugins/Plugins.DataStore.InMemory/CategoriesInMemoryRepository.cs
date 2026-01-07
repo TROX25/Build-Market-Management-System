@@ -14,7 +14,7 @@ namespace Plugins.DataStore.InMemory
 
         public void AddCategory(Category category)
         {
-            if (category != null && _categories.Count > 0)
+            if (_categories != null && _categories.Count > 0)
             {
                 var maxId = _categories.Max(x => x.ID);
                 category.ID = maxId + 1;
@@ -27,6 +27,7 @@ namespace Plugins.DataStore.InMemory
             {
                 new List<Category>();
             }
+            if (_categories == null) _categories = new List<Category>();
             _categories.Add(category);
         }
 

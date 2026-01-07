@@ -1,13 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Build_Market_Management_System.Models;
+using UseCases.Interfaces;
 
 namespace Build_Market_Management_System.Controllers
 {
     public class CategoriesController : Controller
     {
+        private readonly IViewCategoriesUseCase viewCategoriesUseCase;
+
+        public CategoriesController(IViewCategoriesUseCase viewCategoriesUseCase)
+        {
+            this.viewCategoriesUseCase = viewCategoriesUseCase;
+        }
         public IActionResult Index()
         {
-            var categories = CategoriesRepository.GetCategories();
+            var categories = viewCategoriesUseCase.Execute();
             return View(categories);
         }
 
@@ -41,7 +48,7 @@ namespace Build_Market_Management_System.Controllers
         public IActionResult Add(Category category)
         {
             //ViewBag.Action = "add";
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 CategoriesRepository.AddCategory(category);
                 return RedirectToAction("Index");
