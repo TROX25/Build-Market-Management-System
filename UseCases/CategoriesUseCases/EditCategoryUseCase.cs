@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreBusiness;
 using UseCases.DataStorePluginInterfaces;
+using UseCases.Interfaces;
 
 namespace UseCases.CategoriesUseCases
 {
-    public class EditCategoryUseCase
+    public class EditCategoryUseCase : IEditCategoryUseCase
     {
         private readonly ICategoryRepository categoryRepository;
 

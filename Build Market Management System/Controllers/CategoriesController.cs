@@ -8,7 +8,7 @@ namespace Build_Market_Management_System.Controllers
     {
         private readonly IViewCategoriesUseCase viewCategoriesUseCase;
 
-        public CategoriesController(IViewCategoriesUseCase viewCategoriesUseCase)
+        public CategoriesController(IViewCategoriesUseCase viewCategoriesUseCase, )
         {
             this.viewCategoriesUseCase = viewCategoriesUseCase;
         }
