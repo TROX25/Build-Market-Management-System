@@ -6,11 +6,23 @@ namespace Build_Market_Management_System.Controllers
 {
     public class CategoriesController : Controller
     {
+        private readonly IAddCategoryUseCase addCategoryUseCase;
+        private readonly IDeleteCategoryUseCase deleteCategoryUseCase;
+        private readonly IEditCategoryUseCase editCategoryUseCase;
         private readonly IViewCategoriesUseCase viewCategoriesUseCase;
+        private readonly IViewSelectedCategoryUseCase viewSelectedCategoryUseCase;
 
-        public CategoriesController(IViewCategoriesUseCase viewCategoriesUseCase, )
+        public CategoriesController(IViewCategoriesUseCase viewCategoriesUseCase,
+            IAddCategoryUseCase addCategoryUseCase,
+            IDeleteCategoryUseCase deleteCategoryUseCase,
+            IEditCategoryUseCase editCategoryUseCase,
+            IViewSelectedCategoryUseCase viewSelectedCategoryUseCase)
         {
             this.viewCategoriesUseCase = viewCategoriesUseCase;
+            this.addCategoryUseCase = addCategoryUseCase;
+            this.deleteCategoryUseCase = deleteCategoryUseCase;
+            this.editCategoryUseCase = editCategoryUseCase;
+            this.viewSelectedCategoryUseCase = viewSelectedCategoryUseCase;
         }
         public IActionResult Index()
         {
