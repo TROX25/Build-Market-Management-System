@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Build_Market_Management_System.Models;
 using UseCases.Interfaces;
+using CoreBusiness;
 
 namespace Build_Market_Management_System.Controllers
 {
@@ -33,7 +33,7 @@ namespace Build_Market_Management_System.Controllers
         public IActionResult Edit(int? id)
         {
             ViewBag.Action = "edit";
-            var category = CategoriesRepository.GetCategoryById(id ?? 0);
+            var category = viewSelectedCategoryUseCase.Execute(id ?? 0);
 
             return View(category);
         }
@@ -43,7 +43,7 @@ namespace Build_Market_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                CategoriesRepository.UpdateCategory(category.ID, category);
+                editCategoryUseCase.Execute(category.ID, category);
                 return RedirectToAction("Index"); // Dzieki temu wracamy do listy kategorii po edycji
             }
             //ViewBag.Action = "edit";
@@ -62,7 +62,7 @@ namespace Build_Market_Management_System.Controllers
             //ViewBag.Action = "add";
             if (ModelState.IsValid)
             {
-                CategoriesRepository.AddCategory(category);
+                addCategoryUseCase.Execute(category);
                 return RedirectToAction("Index");
             }
             else
@@ -76,7 +76,7 @@ namespace Build_Market_Management_System.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            CategoriesRepository.DeleteCategory(id);
+            deleteCategoryUseCase.execute(id);
             return RedirectToAction("Index");
         }
     }
