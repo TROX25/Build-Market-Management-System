@@ -3,10 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreBusiness;
+using UseCases.DataStorePluginInterfaces;
 
 namespace UseCases.ProductsUseCases
 {
-    internal class ViewProductsInCategoryUseCase
+    public class ViewProductsInCategoryUseCase
     {
+        private readonly IProductRepository productRepository;
+
+        public ViewProductsInCategoryUseCase(IProductRepository productRepository)
+        {
+            this.productRepository = productRepository;
+        }
+
+        public IEnumerable<Product> Execute(int categoryId)
+        {
+            return productRepository.GetProductsByCategoryId(categoryId);
+        }
     }
 }
