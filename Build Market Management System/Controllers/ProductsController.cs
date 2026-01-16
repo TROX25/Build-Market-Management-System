@@ -3,19 +3,41 @@ using UseCases.Interfaces;
 using CoreBusiness;
 using Build_Market_Management_System.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using UseCases.ProductsUseCases;
+using UseCases.CategoriesUseCases;
 
 
 namespace Build_Market_Management_System.Controllers
 {
     public class ProductsController : Controller
     {
-        public ProductsController()
+        private readonly IAddProductUseCase addProductUseCase;
+        private readonly IEditProductUseCase editProductUseCase;
+        private readonly IDeleteProductUseCase deleteProductUseCase;
+        private readonly IViewSelectedProductUseCase viewSelectedProductUseCase;
+        private readonly IViewProductsUseCase viewProductsUseCase;
+        private readonly IViewCategoriesUseCase viewCategoriesUseCase;
+        private readonly IViewProductsInCategoryUseCase viewProductsInCategoryUseCase;
+
+        public ProductsController(IAddProductUseCase addProductUseCase,
+            IEditProductUseCase editProductUseCase,
+            IDeleteProductUseCase deleteProductUseCase,
+            IViewSelectedProductUseCase viewSelectedProductUseCase,
+            IViewProductsUseCase viewProductsUseCase,
+            IViewCategoriesUseCase viewCategoriesUseCase,
+            IViewProductsInCategoryUseCase viewProductsInCategoryUseCase)
         {
-            
+            this.addProductUseCase = addProductUseCase;
+            this.editProductUseCase = editProductUseCase;
+            this.deleteProductUseCase = deleteProductUseCase;
+            this.viewSelectedProductUseCase = viewSelectedProductUseCase;
+            this.viewProductsUseCase = viewProductsUseCase;
+            this.viewCategoriesUseCase = viewCategoriesUseCase;
+            this.viewProductsInCategoryUseCase = viewProductsInCategoryUseCase;
         }
         public IActionResult Index()
         {
-            var products = ProductsRepository.GetProducts(loadCategory: true);
+            var products = viewProductsUseCase.Execute(loadCategory: true);
             return View(products);
         }
 
@@ -24,7 +46,7 @@ namespace Build_Market_Management_System.Controllers
             ViewBag.Action = "add";
             var productViewModel = new ViewModels.ProductViewModel
             {
-                Categories = CategoriesRepository.GetCategories()
+                Categories = viewCategoriesUseCase.Execute()
             };
             return View(productViewModel);
         }
@@ -34,11 +56,11 @@ namespace Build_Market_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                ProductsRepository.AddProduct(productViewModel.Product);
+                addProductUseCase.Execute(productViewModel.Product);
                 return RedirectToAction("Index");
             }
 
-            productViewModel.Categories = CategoriesRepository.GetCategories();
+            productViewModel.Categories = viewCategoriesUseCase.Execute();
             return View(productViewModel);
 
 
@@ -46,7 +68,7 @@ namespace Build_Market_Management_System.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            ProductsRepository.DeleteProduct(id);
+            deleteProductUseCase.Execute(id);
             return RedirectToAction("Index");
         }
 
@@ -56,8 +78,8 @@ namespace Build_Market_Management_System.Controllers
             var productViewModel = new ProductViewModel
             {
                 // Dzieki temu pobieramy dane kategorii i produktu ktore potem przekazuje do widoku i wyswietlam
-                Product = ProductsRepository.GetProductById(id ?? 0),
-                Categories = CategoriesRepository.GetCategories()
+                Product = viewSelectedProductUseCase.Execute(id ?? 0),
+                Categories = viewCategoriesUseCase.Execute()
             };
 
             return View(productViewModel);
@@ -68,16 +90,16 @@ namespace Build_Market_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                ProductsRepository.UpdateProduct(productViewModel.Product.ProductId, productViewModel.Product);
+                editProductUseCase.Execute(productViewModel.Product.ProductId, productViewModel.Product);
                 return RedirectToAction("Index");
             }
-            productViewModel.Categories = CategoriesRepository.GetCategories();
+            productViewModel.Categories = viewCategoriesUseCase.Execute();
             return View(productViewModel);
         }
 
         public IActionResult ProductsByCategoryPartial(int categoryId)
         {
-            var products = ProductsRepository.GetProductsByCategoryId(categoryId);
+            var products = viewProductsInCategoryUseCase.Execute(categoryId);
 
             // Dzieki partial view zamisast odswiezac cala strone odswiezamy tylko liste produktow
             return PartialView("_Products", products);
