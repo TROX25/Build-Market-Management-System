@@ -1,7 +1,9 @@
-﻿namespace UseCases.Interfaces
+﻿using CoreBusiness;
+
+namespace UseCases.Interfaces
 {
     public interface ISellProductsUseCase
     {
-        void Execute(int productId, int quantity);
+        void Execute(int productId, int quantity, Transaction transaction);
     }
 }

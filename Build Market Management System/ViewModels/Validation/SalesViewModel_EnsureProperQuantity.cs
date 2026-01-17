@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Build_Market_Management_System.Models;
+using UseCases.Interfaces;
 
 namespace Build_Market_Management_System.ViewModels.Validation
 {
@@ -19,19 +20,25 @@ namespace Build_Market_Management_System.ViewModels.Validation
                 }
                 else
                 {
-                    var product = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
+                    // Inne Dependency Injection nie działa w atrybutach, więc musimy uzyskać dostęp do repozytorium w inny sposób
+                    var getProductByIdUseCase = validationContext.GetService(typeof(IViewSelectedProductUseCase)) as IViewSelectedProductUseCase;
 
-                    if (product != null)
+                    if (getProductByIdUseCase != null)
                     {
-                        if (product.Quantity < salesViewModel.QuantityToSell)
+                        var product = getProductByIdUseCase.Execute(salesViewModel.SelectedProductId);
+
+                        if (product != null)
                         {
-                            return new ValidationResult($"Insufficient stock. Available quantity: {product.Quantity.Value}.");
-                        }
+                            if (product.Quantity < salesViewModel.QuantityToSell)
+                            {
+                                return new ValidationResult($"Insufficient stock. Available quantity: {product.Quantity.Value}.");
+                            }
                         
-                    }
-                    else
-                    {
-                        return new ValidationResult("Selected product doesn't exist.");
+                        }
+                        else
+                        {
+                            return new ValidationResult("Selected product doesn't exist.");
+                        }
                     }
                 }
 

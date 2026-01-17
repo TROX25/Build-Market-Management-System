@@ -27,6 +27,7 @@ builder.Services.AddTransient<IViewProductsUseCase, ViewProductsUseCase>();
 builder.Services.AddTransient<IViewSelectedProductUseCase, ViewSelectedProductUseCase>();
 builder.Services.AddTransient<IViewProductsInCategoryUseCase, ViewProductsInCategoryUseCase>();
 builder.Services.AddTransient<ISellProductsUseCase, SellProductsUseCase>();
+builder.Services.AddTransient<IDecreaseProductQuantityUseCase, DecreaseProductQuantityUseCase>();
 
 builder.Services.AddTransient<IRecordTransactionUseCase, RecordTransactionUseCase>();
 builder.Services.AddTransient<ISearchTransactionsUseCase, SearchTransactionsUseCase>();

@@ -1,23 +1,40 @@
-﻿using Build_Market_Management_System.Models;
-using Build_Market_Management_System.ViewModels;
+﻿using Build_Market_Management_System.ViewModels;
+using CoreBusiness;
 using Microsoft.AspNetCore.Mvc;
+using UseCases.CategoriesUseCases;
+using UseCases.Interfaces;
 
 namespace Build_Market_Management_System.Controllers
 {
     public class SalesController : Controller
     {
+        private readonly IViewCategoriesUseCase viewCategoriesUseCase;
+        private readonly IViewSelectedProductUseCase viewSelectedProductUseCase;
+        private readonly IRecordTransactionUseCase recordTransactionUseCase;
+        private readonly IDecreaseProductQuantityUseCase decreaseProductQuantityUseCase;
+
+        public SalesController(IViewCategoriesUseCase viewCategoriesUseCase, 
+            IViewSelectedProductUseCase viewSelectedProductUseCase,
+            IRecordTransactionUseCase recordTransactionUseCase,
+            IDecreaseProductQuantityUseCase decreaseProductQuantityUseCase)
+        {
+            this.viewCategoriesUseCase = viewCategoriesUseCase;
+            this.viewSelectedProductUseCase = viewSelectedProductUseCase;
+            this.recordTransactionUseCase = recordTransactionUseCase;
+            this.decreaseProductQuantityUseCase = decreaseProductQuantityUseCase;
+        }
         public IActionResult Index()
         {
             var salesViewModel = new SalesViewModel
             {
-                Categories = CategoriesRepository.GetCategories()
+                Categories = viewCategoriesUseCase.Execute(),
             };
             return View(salesViewModel);
         }
 
         public IActionResult ProductDetailsPartial(int productId)
         {
-            var product = ProductsRepository.GetProductById(productId);
+            var product = viewSelectedProductUseCase.Execute(productId);
             return PartialView("_SellProduct", product);
         }
 
@@ -27,11 +44,11 @@ namespace Build_Market_Management_System.Controllers
             if (ModelState.IsValid)
             {
                 // sell product
-                var prod = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
+                var prod = viewSelectedProductUseCase.Execute(salesViewModel.SelectedProductId);
                 if (prod != null && prod.Quantity.HasValue && prod.Quantity.Value >= salesViewModel.QuantityToSell)
                 {
                     // Decrease prod quantity
-                    ProductsRepository.DecreaseProductQuantity(prod.ProductId, salesViewModel.QuantityToSell);
+                    decreaseProductQuantityUseCase.Execute(prod.ProductId, salesViewModel.QuantityToSell);
                     // Log transaction
                     var transaction = new Transaction
                     {
@@ -43,7 +60,7 @@ namespace Build_Market_Management_System.Controllers
                         SoldQuantity = salesViewModel.QuantityToSell,
                         CashierName = "Default Cashier" // This could be dynamic based on logged-in user
                     };
-                    TransactionsRepository.AddTransaction(transaction);
+                    recordTransactionUseCase.Execute(transaction);
                     TempData["SuccessMessage"] = $"Successfully sold {salesViewModel.QuantityToSell} unit(s) of {prod.Name}.";
                 }
                 else
@@ -52,11 +69,11 @@ namespace Build_Market_Management_System.Controllers
                 }
             }
 
-            var product = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
+            var product = viewSelectedProductUseCase.Execute(salesViewModel.SelectedProductId);
             salesViewModel.SelectedCategoryId = (product?.CategoryId == null) ? 0 : product.CategoryId.Value;
             // Potrzebuje jeszcze raz pobrac kategorie, zeby wypelnic dropdown w widoku
             // poniewaz przy postowaniu modelu nie sa one przesylane
-            salesViewModel.Categories = CategoriesRepository.GetCategories();
+            salesViewModel.Categories = viewCategoriesUseCase.Execute();
             return View("Index", salesViewModel);
         }
     }
