@@ -3,6 +3,7 @@ using UseCases.CategoriesUseCases;
 using UseCases.DataStorePluginInterfaces;
 using UseCases.Interfaces;
 using UseCases.ProductsUseCases;
+using UseCases.TransactionsUseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<ICategoryRepository, CategoriesInMemoryRepository>();
 builder.Services.AddSingleton<IProductRepository, ProductsInMemoryRepository>();
-builder.Services.AddSingleton<ITransactionRepository, TransactionInMemoryRepository>();
+builder.Services.AddSingleton<ITransactionRepository, TransactionsInMemoryRepository>();
 
 
 builder.Services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
@@ -28,6 +29,9 @@ builder.Services.AddTransient<IViewProductsInCategoryUseCase, ViewProductsInCate
 builder.Services.AddTransient<ISellProductsUseCase, SellProductsUseCase>();
 
 builder.Services.AddTransient<IRecordTransactionUseCase, RecordTransactionUseCase>();
+builder.Services.AddTransient<ISearchTransactionsUseCase, SearchTransactionsUseCase>();
+builder.Services.AddTransient<IGetTodayTransactionUseCase, GetTodayTransactionUseCase>();
+
 
 var app = builder.Build();
 
