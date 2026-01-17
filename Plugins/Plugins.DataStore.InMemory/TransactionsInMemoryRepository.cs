@@ -1,13 +1,18 @@
-﻿using CoreBusiness;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CoreBusiness;
+using UseCases.DataStorePluginInterfaces;
 
-namespace Build_Market_Management_System.Models
+namespace Plugins.DataStore.InMemory
 {
-    public static class TransactionsRepository
+    public class TransactionsInMemoryRepository : ITransactionRepository
     {
+        private List<Transaction> transactions = new List<Transaction>();
 
-        private static List<Transaction> transactions = new List<Transaction>();
-
-        public static IEnumerable<Transaction> GetByDayAndCashier(string cashierName, DateTime date)
+        public IEnumerable<Transaction> GetByDayAndCashier(string cashierName, DateTime date)
         {
             if (string.IsNullOrWhiteSpace(cashierName))
                 return transactions.Where(x => x.TimeStamp.Date == date.Date);
@@ -17,7 +22,7 @@ namespace Build_Market_Management_System.Models
                     x.TimeStamp.Date == date.Date);
         }
 
-        public static IEnumerable<Transaction> Search(string cashierName, DateTime startDate, DateTime endDate)
+        public IEnumerable<Transaction> Search(string cashierName, DateTime startDate, DateTime endDate)
         {
             if (string.IsNullOrWhiteSpace(cashierName))
                 return transactions.Where(x => x.TimeStamp >= startDate.Date && x.TimeStamp <= endDate.Date.AddDays(1).Date);
@@ -27,7 +32,7 @@ namespace Build_Market_Management_System.Models
                     x.TimeStamp >= startDate.Date && x.TimeStamp <= endDate.Date.AddDays(1).Date);
         }
 
-        public static void AddTransaction(Transaction transaction)
+        public void AddTransaction(Transaction transaction)
         {
             if (transaction == null)
                 throw new ArgumentNullException(nameof(transaction));
@@ -49,3 +54,4 @@ namespace Build_Market_Management_System.Models
 
     }
 }
+

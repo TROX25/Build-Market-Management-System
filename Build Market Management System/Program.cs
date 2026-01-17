@@ -10,6 +10,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<ICategoryRepository, CategoriesInMemoryRepository>();
 builder.Services.AddSingleton<IProductRepository, ProductsInMemoryRepository>();
+builder.Services.AddSingleton<ITransactionRepository, TransactionInMemoryRepository>();
 
 
 builder.Services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
@@ -25,6 +26,8 @@ builder.Services.AddTransient<IViewProductsUseCase, ViewProductsUseCase>();
 builder.Services.AddTransient<IViewSelectedProductUseCase, ViewSelectedProductUseCase>();
 builder.Services.AddTransient<IViewProductsInCategoryUseCase, ViewProductsInCategoryUseCase>();
 builder.Services.AddTransient<ISellProductsUseCase, SellProductsUseCase>();
+
+builder.Services.AddTransient<IRecordTransactionUseCase, RecordTransactionUseCase>();
 
 var app = builder.Build();
 

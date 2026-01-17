@@ -19,9 +19,10 @@ namespace UseCases.ProductsUseCases
             this.productRepository = productRepository;
             this.recordTransactionUseCase = recordTransactionUseCase;
         }
-        public void Execute(int productId, int quantity)
+        public void Execute(int productId, int quantity, Transaction transaction)
         {
             productRepository.DecreaseProductQuantity(productId, quantity);
+            recordTransactionUseCase.Execute(transaction);
             // Add logic to 
         }
     }

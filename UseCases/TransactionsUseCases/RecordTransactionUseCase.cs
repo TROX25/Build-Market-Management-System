@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreBusiness;
+using UseCases.DataStorePluginInterfaces;
 using UseCases.Interfaces;
 
 namespace UseCases.TransactionsUseCases
 {
-    public class RecordTransactionUseCase
+    public class RecordTransactionUseCase : IRecordTransactionUseCase
     {
-        private readonly IRecordTransactionUseCase recordTransactionUseCase;
+        private readonly ITransactionRepository transactionRepository;
 
-        public RecordTransactionUseCase(IRecordTransactionUseCase recordTransactionUseCase)
+        public RecordTransactionUseCase(ITransactionRepository transactionRepository)
         {
-            this.recordTransactionUseCase = recordTransactionUseCase;
+            this.transactionRepository = transactionRepository;
         }
 
-        public void Execute()
+        // Record a transaction, czyli add a transaction to the repository
+        public void Execute(Transaction transaction)
         {
-            // Implementation for recording a transaction
+            transactionRepository.AddTransaction(transaction);
         }
     }
 }
