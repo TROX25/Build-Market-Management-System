@@ -6,6 +6,11 @@ namespace Plugins.DataStore.SQL
 {
     public class MarketContext : DbContext
     {
+        // Choose a string name for the connection string
+        public MarketContext(DbContextOptions<MarketContext> options) : base(options)
+        {
+        }
+
         //DbSet is a database table
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;

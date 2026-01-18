@@ -4,6 +4,8 @@ using UseCases.DataStorePluginInterfaces;
 using UseCases.Interfaces;
 using UseCases.ProductsUseCases;
 using UseCases.TransactionsUseCases;
+using Plugins.DataStore.SQL;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +34,11 @@ builder.Services.AddTransient<IDecreaseProductQuantityUseCase, DecreaseProductQu
 builder.Services.AddTransient<IRecordTransactionUseCase, RecordTransactionUseCase>();
 builder.Services.AddTransient<ISearchTransactionsUseCase, SearchTransactionsUseCase>();
 builder.Services.AddTransient<IGetTodayTransactionUseCase, GetTodayTransactionUseCase>();
+
+builder.Services.AddDbContext<MarketContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MarketManagement"));
+});
 
 
 var app = builder.Build();
