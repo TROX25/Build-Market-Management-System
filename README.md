@@ -74,7 +74,7 @@ Build-Market-Management-System
 ```bash
 git clone https://github.com/TROX25/Build-Market-Management-System.git
 ```
-2.Otwórz plik .sln w Visual Studio
+2. Otwórz plik .sln w Visual Studio
 
 3. Skonfiguruj połączenie z bazą danych (np. w appsettings.json jeśli dotyczy)
 
