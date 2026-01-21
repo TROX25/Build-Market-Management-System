@@ -75,6 +75,9 @@ Build-Market-Management-System
 git clone https://github.com/TROX25/Build-Market-Management-System.git
 ```
 2.Otwórz plik .sln w Visual Studio
-2. Skonfiguruj połączenie z bazą danych (np. w appsettings.json jeśli dotyczy)
-3. Przywróć pakiety NuGet
-4. Uruchom projekt (F5 / dotnet run)
+
+3. Skonfiguruj połączenie z bazą danych (np. w appsettings.json jeśli dotyczy)
+
+4. Przywróć pakiety NuGet
+
+5. Uruchom projekt (F5 / dotnet run)
