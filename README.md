@@ -24,7 +24,6 @@ Celem projektu było:
 - obsługa bazy danych przez Entity Framework
 - aplikacja webowa oparta o ASP.NET MVC
 
-*(zakres funkcjonalności można łatwo rozszerzyć o role, autoryzację, raporty itp.)*
 
 ---
 
