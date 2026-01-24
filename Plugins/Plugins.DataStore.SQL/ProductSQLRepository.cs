@@ -51,6 +51,9 @@ namespace Plugins.DataStore.SQL
 
         public Product? GetProductById(int productId, bool loadCategory = false)
         {
+            var product = db.Products.FirstOrDefault(p => p.ProductId == productId);
+            if (product == null) return null;
+
             if (loadCategory)
                 return db.Products
                     .Include(x => x.Category)
@@ -62,7 +65,10 @@ namespace Plugins.DataStore.SQL
 
         public IEnumerable<Product> GetProducts(bool loadCategory = false)
         {
-            return db.Products.ToList();
+            if (loadCategory)
+                return db.Products.Include(x => x.Category).OrderBy(x => x.CategoryId).ToList();
+            else
+                return db.Products.OrderBy(x => x.CategoryId).ToList();
         }
 
         public IEnumerable<Product> GetProductsByCategoryId(int categoryId)
