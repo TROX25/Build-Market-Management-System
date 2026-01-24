@@ -7,6 +7,8 @@ using UseCases.TransactionsUseCases;
 using Plugins.DataStore.SQL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using Build_Market_Management_System.Data;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +58,13 @@ builder.Services.AddDbContext<MarketContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MarketManagement"));
 });
+
+builder.Services.AddDbContext<AccountContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MarketManagement"));
+});
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AccountContext>();
 
 
 var app = builder.Build();
