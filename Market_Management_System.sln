@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Build Market Management System", "Build Market Management System\Build Market Management System.csproj", "{9817572B-66AF-48A7-9E1E-BE13A53D3073}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Market_Management_System", "Build Market Management System\Market_Management_System.csproj", "{9817572B-66AF-48A7-9E1E-BE13A53D3073}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBusiness", "CoreBusiness\CoreBusiness.csproj", "{27FE18F4-F683-401F-B419-64DA45E6CE3D}"
 EndProject
