@@ -17,7 +17,7 @@ if (builder.Environment.IsEnvironment("QA"))
     builder.WebHost.UseStaticWebAssets();
 }
 
-    builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews();
 
 
 if (builder.Environment.IsEnvironment("QA"))
@@ -73,6 +73,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Musi byæ po Routing
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

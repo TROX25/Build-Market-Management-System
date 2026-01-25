@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UseCases.Interfaces;
 using CoreBusiness;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Build_Market_Management_System.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         private readonly IAddCategoryUseCase addCategoryUseCase;

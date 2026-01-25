@@ -1,4 +1,5 @@
 ﻿using Build_Market_Management_System.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UseCases.DataStorePluginInterfaces;
 using UseCases.Interfaces;
@@ -6,6 +7,7 @@ using UseCases.Interfaces;
 
 namespace Build_Market_Management_System.Controllers
 {
+    [Authorize]
     public class TransactionsController : Controller
     {
         private readonly IGetTodayTransactionUseCase getTodayTransactionUseCase;
