@@ -17,7 +17,8 @@ if (builder.Environment.IsEnvironment("QA"))
     builder.WebHost.UseStaticWebAssets();
 }
 
-    builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
 
 
 if (builder.Environment.IsEnvironment("QA"))
@@ -66,14 +67,17 @@ builder.Services.AddDbContext<AccountContext>(options =>
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AccountContext>();
 
-
 var app = builder.Build();
 
 app.UseStaticFiles();
 
 app.UseRouting();
 
+// Musi byæ po Routing
+app.UseAuthentication();
+app.UseAuthorization();
 
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -1,11 +1,13 @@
 ﻿using Build_Market_Management_System.ViewModels;
 using CoreBusiness;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UseCases.CategoriesUseCases;
 using UseCases.Interfaces;
 
 namespace Build_Market_Management_System.Controllers
 {
+    [Authorize]
     public class SalesController : Controller
     {
         private readonly IViewCategoriesUseCase viewCategoriesUseCase;

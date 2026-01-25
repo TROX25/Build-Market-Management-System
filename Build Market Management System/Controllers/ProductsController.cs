@@ -1,14 +1,16 @@
 ﻿using System.Security.Cryptography.X509Certificates;
-using UseCases.Interfaces;
-using CoreBusiness;
 using Build_Market_Management_System.ViewModels;
+using CoreBusiness;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UseCases.ProductsUseCases;
 using UseCases.CategoriesUseCases;
+using UseCases.Interfaces;
+using UseCases.ProductsUseCases;
 
 
 namespace Build_Market_Management_System.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IAddProductUseCase addProductUseCase;
