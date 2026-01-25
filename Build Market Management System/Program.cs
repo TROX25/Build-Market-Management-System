@@ -17,7 +17,8 @@ if (builder.Environment.IsEnvironment("QA"))
     builder.WebHost.UseStaticWebAssets();
 }
 
-    builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
 
 
 if (builder.Environment.IsEnvironment("QA"))
